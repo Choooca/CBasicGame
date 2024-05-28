@@ -1,0 +1,15 @@
+{
+  "files.associations": {
+	"render.h": "c",
+	"render_internal.h": "c",
+	"glad.h": "c",
+	"config.h": "c",
+	"type.h": "c",
+	"io.h": "c",
+	"global.h": "c",
+	"input.h": "c",
+	"string.h": "c",
+	"physics_internal.h": "c",
+	"physics.h": "c"
+}
+}
