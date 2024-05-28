@@ -80,19 +80,29 @@ int main(int argc, char *argv[])
 
 		render_aabb((f32 *)&sum_aabb, (vec4){1., 1., 1., .5});
 
+		AABB minkowsi_difference = aabb_minkowski_difference(test_aabb, cursor_aabb);
+		render_aabb((f32 *)&minkowsi_difference, ORANGE);
+
+		vec2 pv;
+		aabb_penetration_vector(pv, minkowsi_difference);
+		AABB collision_aabb = cursor_aabb;
+		collision_aabb.position[0] += pv[0];
+		collision_aabb.position[1] += pv[1];
+
 		if (physics_aabb_intersect_aabb(test_aabb, cursor_aabb))
 		{
-			render_aabb((f32 *)&cursor_aabb, GREEN);
+			render_aabb((f32 *)&cursor_aabb, RED);
+			render_aabb((f32 *)&collision_aabb, CYAN);
+
+			vec2_add(pv, pos, pv);
+			render_line_segment(pos, pv, CYAN);
 		}
 		else
 		{
-			render_aabb((f32 *)&cursor_aabb, RED);
+			render_aabb((f32 *)&cursor_aabb, WHITE);
 		}
 
 		render_aabb((f32 *)&test_aabb, WHITE);
-
-		AABB minkowsi_difference = aabb_minkowski_difference(test_aabb, cursor_aabb);
-		render_aabb((f32 *)&minkowsi_difference, ORANGE);
 
 		if (physics_point_intersect_aabb(pos, test_aabb))
 			render_quad(pos, (vec2){5, 5}, GREEN);
