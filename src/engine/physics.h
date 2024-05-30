@@ -18,17 +18,25 @@ typedef struct body
 	vec2 acceleration;
 } Body;
 
+typedef struct static_body
+{
+	AABB aabb;
+} Static_Body;
+
 typedef struct hit
 {
 	bool is_hit;
 	f32 time;
 	vec2 position;
+	vec2 normal;
 } Hit;
 
 void physics_init(void);
 void physics_update(void);
 size_t physics_body_create(vec2 position, vec2 size);
 Body *physics_body_get(size_t index);
+Static_Body *physics_static_body_get(size_t index);
+size_t physics_static_body_create(vec2 position, vec2 size);
 bool physics_point_intersect_aabb(vec2 point, AABB aabb);
 bool physics_aabb_intersect_aabb(AABB a, AABB b);
 AABB aabb_minkowski_difference(AABB a, AABB b);
