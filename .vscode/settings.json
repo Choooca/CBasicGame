@@ -10,6 +10,8 @@
 	"input.h": "c",
 	"string.h": "c",
 	"physics_internal.h": "c",
-	"physics.h": "c"
+	"physics.h": "c",
+	"array_list.h": "c",
+	"entity.h": "c"
 }
 }
