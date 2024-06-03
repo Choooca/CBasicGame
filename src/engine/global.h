@@ -8,7 +8,6 @@
 
 typedef struct global
 {
-	Render_state render;
 	Config_State config;
 	Input_State input;
 	Time_State time;

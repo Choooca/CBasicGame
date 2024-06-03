@@ -33,8 +33,8 @@ SDL_Window *render_init_window(u32 width, u32 height)
 		"MyGame",
 		SDL_WINDOWPOS_CENTERED,
 		SDL_WINDOWPOS_CENTERED,
-		global.render.width,
-		global.render.height,
+		width,
+		height,
 		SDL_WINDOW_OPENGL);
 
 	if (!window)
@@ -60,18 +60,19 @@ SDL_Window *render_init_window(u32 width, u32 height)
 	return window;
 }
 
-void render_init_shader(Render_State_Internal *state)
+void render_init_shader(u32 *shader_default, f32 render_width, f32 render_height)
 {
-	state->shader_default = render_shader_create("./shader/default.vert", "./shader/default.frag");
+	mat4x4 projection;
+	shader_default = render_shader_create("./shader/default.vert", "./shader/default.frag");
 
-	mat4x4_ortho(state->projection, 0, global.render.width, 0, global.render.height, -2, 2);
+	mat4x4_ortho(projection, 0, render_width, 0, render_height, -2, 2);
 
-	glUseProgram(state->shader_default);
+	glUseProgram(*shader_default);
 	glUniformMatrix4fv(
-		glGetUniformLocation(state->shader_default, "projection"),
+		glGetUniformLocation(*shader_default, "projection"),
 		1,
 		GL_FALSE,
-		&state->projection[0][0]);
+		&projection[0][0]);
 }
 
 void render_init_color_texture(u32 *texture)
