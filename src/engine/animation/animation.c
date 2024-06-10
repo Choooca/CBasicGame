@@ -94,7 +94,7 @@ void animation_update(f32 dt)
 			{
 				if (animation->does_loop)
 				{
-					animation->current_frame_time = 0;
+					animation->current_frame_index = 0;
 				}
 				else
 				{
@@ -105,4 +105,11 @@ void animation_update(f32 dt)
 			animation->current_frame_time = adef->frames[animation->current_frame_index].duration;
 		}
 	}
+}
+
+void animation_render(Animation *anim, vec2 position, vec4 color, u32 texture_slots[8])
+{
+	Animation_Definition *adef = anim->definition;
+	Animation_Frame *aframe = &adef->frames[anim->current_frame_index];
+	render_sprite_sheet_frame(adef->sprite_sheet, aframe->row, aframe->column, position, anim->is_flipped, WHITE, texture_slots);
 }
